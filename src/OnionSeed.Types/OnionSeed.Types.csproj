@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard1.1</TargetFramework>
+		<Description>Custom data types.</Description>
+		<RepositoryUrl>https://github.com/TaffarelJr/OnionSeed.Types.git</RepositoryUrl>
+	</PropertyGroup>
+
+	<Import Project="..\..\build\Production.props" />
+
+</Project>
