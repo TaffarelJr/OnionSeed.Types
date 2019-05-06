@@ -4,5 +4,51 @@
         <name>OnionSeed.Types</name>
     </assembly>
     <members>
+        <member name="T:OnionSeed.Types.HashCode">
+            <summary>
+            Encapsulates a fluent way to combine multiple hash codes together.
+            </summary>
+            <remarks>This code is taken and modified from Muhammad Rehan Saeed's blog
+            (https://rehansaeed.com/gethashcode-made-easy/). He's a Microsoft developer.
+            <para>This could be replaced by the new HashCode class introduced in .NET Standard 2.1.</para></remarks>
+        </member>
+        <member name="M:OnionSeed.Types.HashCode.op_Implicit(OnionSeed.Types.HashCode)~System.Int32">
+            <summary>
+            Converts the given <see cref="T:OnionSeed.Types.HashCode"/> to an <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="hashCode">The <see cref="T:OnionSeed.Types.HashCode"/> to be converted.</param>
+        </member>
+        <member name="M:OnionSeed.Types.HashCode.Of``1(``0)">
+            <summary>
+            Calculates the hash code of the given item.
+            </summary>
+            <typeparam name="T">The data type of the item.</typeparam>
+            <param name="item">The item for which a hash code should be calculated.</param>
+            <returns>The hash code of the given item.</returns>
+        </member>
+        <member name="M:OnionSeed.Types.HashCode.OfEach``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Calculates the hash code of the given set of items.
+            </summary>
+            <typeparam name="T">The data type of the items in the set.</typeparam>
+            <param name="items">The set for which a hash code should be calculated.</param>
+            <returns>The hash code of the given set of items.</returns>
+        </member>
+        <member name="M:OnionSeed.Types.HashCode.And``1(``0)">
+            <summary>
+            Adds the hash code of the given item to the current instance.
+            </summary>
+            <typeparam name="T">The data type of the item.</typeparam>
+            <param name="item">The item whose hash code should be added to the current instance.</param>
+            <returns>The hash code of the given item combined with the current instance.</returns>
+        </member>
+        <member name="M:OnionSeed.Types.HashCode.AndEach``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Adds the hash code of the given set of items to the current instance.
+            </summary>
+            <typeparam name="T">The data type of the items in the set.</typeparam>
+            <param name="items">>The set whose hash code should be added to the current instance.</param>
+            <returns>The hash code of the given set of items combined with the current instance.</returns>
+        </member>
     </members>
 </doc>
