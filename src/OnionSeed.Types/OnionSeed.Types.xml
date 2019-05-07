@@ -50,5 +50,80 @@
             <param name="items">>The set whose hash code should be added to the current instance.</param>
             <returns>The hash code of the given set of items combined with the current instance.</returns>
         </member>
+        <member name="T:OnionSeed.Types.Interval`1">
+            <summary>
+            Represents a mathematical interval. This can be useful for things like date ranges.
+            </summary>
+            <typeparam name="T">The type of values in the interval.</typeparam>
+            <remarks>Details on mathematical intervals can be found here: https://en.wikipedia.org/wiki/Interval_(mathematics) .</remarks>
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.#ctor(`0,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:OnionSeed.Types.Interval`1"/> struct.
+            </summary>
+            <param name="min">The minimum (left) endpoint in the interval.</param>
+            <param name="max">The maximum (right) endpoint in the interval.</param>
+            <remarks>By default, the interval will be closed (inclusive).</remarks>
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.#ctor(System.Boolean,`0,`0,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:OnionSeed.Types.Interval`1"/> struct.
+            </summary>
+            <param name="minIsIncluded">A value indicating whether the <see cref="P:OnionSeed.Types.Interval`1.Min"/> endpoint is included in the interval.</param>
+            <param name="min">The minimum (left) endpoint in the interval.</param>
+            <param name="max">The maximum (right) endpoint in the interval.</param>
+            <param name="maxIsIncluded">A value indicating whether the <see cref="P:OnionSeed.Types.Interval`1.Max"/> endpoint is included in the interval.</param>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.Min">
+            <summary>
+            Gets the minimum (left) endpoint in the interval.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.Max">
+            <summary>
+            Gets the maximum (right) endpoint in the interval.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.MinIsIncluded">
+            <summary>
+            Gets a value indicating whether the <see cref="P:OnionSeed.Types.Interval`1.Min"/> endpoint is included in the interval.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.MaxIsIncluded">
+            <summary>
+            Gets a value indicating whether the <see cref="P:OnionSeed.Types.Interval`1.Max"/> endpoint is included in the interval.
+            </summary>
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.op_Equality(OnionSeed.Types.Interval{`0},OnionSeed.Types.Interval{`0})">
+            <summary>
+            Returns <c>true</c> if the operands are equal, otherwise <c>false</c>.
+            </summary>
+            <param name="left">The first operand.</param>
+            <param name="right">The second operand.</param>
+            <returns><c>true</c> if the operands are equal, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.op_Inequality(OnionSeed.Types.Interval{`0},OnionSeed.Types.Interval{`0})">
+            <summary>
+            Returns <c>false</c> if the operands are equal, otherwise <c>true</c>.
+            </summary>
+            <param name="left">The first operand.</param>
+            <param name="right">The second operand.</param>
+            <returns><c>false</c> if the operands are equal, otherwise <c>true</c>.</returns>
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.Equals(OnionSeed.Types.Interval{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.ToString">
+            <summary>
+            Returns the string representation of this instance.
+            </summary>
+            <returns>The string representation of this instance.</returns>
+        </member>
     </members>
 </doc>
