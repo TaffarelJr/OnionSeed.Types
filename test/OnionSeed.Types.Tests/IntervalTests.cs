@@ -229,5 +229,56 @@ namespace OnionSeed.Types
 			// Assert
 			result.Should().Be(expected);
 		}
+
+		[Theory]
+		[InlineData(false, 3, 7, false, true)]
+		[InlineData(false, 3, 7, true, false)]
+		[InlineData(true, 3, 7, false, false)]
+		[InlineData(true, 3, 7, true, false)]
+		public void IsOpen_ShouldReturnCorrectValue(bool includeMin, int min, int max, bool includeMax, bool expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.IsOpen;
+
+			// Assert
+			result.Should().Be(expected);
+		}
+
+		[Theory]
+		[InlineData(false, 3, 7, false, false)]
+		[InlineData(false, 3, 7, true, true)]
+		[InlineData(true, 3, 7, false, true)]
+		[InlineData(true, 3, 7, true, false)]
+		public void IsHalfOpen_ShouldReturnCorrectValue(bool includeMin, int min, int max, bool includeMax, bool expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.IsHalfOpen;
+
+			// Assert
+			result.Should().Be(expected);
+		}
+
+		[Theory]
+		[InlineData(false, 3, 7, false, false)]
+		[InlineData(false, 3, 7, true, false)]
+		[InlineData(true, 3, 7, false, false)]
+		[InlineData(true, 3, 7, true, true)]
+		public void IsClosed_ShouldReturnCorrectValue(bool includeMin, int min, int max, bool includeMax, bool expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.IsClosed;
+
+			// Assert
+			result.Should().Be(expected);
+		}
 	}
 }

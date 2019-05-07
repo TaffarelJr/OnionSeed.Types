@@ -100,6 +100,21 @@
             Gets a value indicating whether the <see cref="P:OnionSeed.Types.Interval`1.Max"/> endpoint is included in the interval.
             </summary>
         </member>
+        <member name="P:OnionSeed.Types.Interval`1.IsOpen">
+            <summary>
+            Gets a value indicating whether the interval does not include any of its endpoints.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.IsHalfOpen">
+            <summary>
+            Gets a value indicating whether the interval includes exactly one of its endpoints.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.IsClosed">
+            <summary>
+            Gets a value indicating whether the interval includes both of its endpoints.
+            </summary>
+        </member>
         <member name="M:OnionSeed.Types.Interval`1.op_Equality(OnionSeed.Types.Interval{`0},OnionSeed.Types.Interval{`0})">
             <summary>
             Returns <c>true</c> if the operands are equal, otherwise <c>false</c>.

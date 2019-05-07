@@ -71,6 +71,21 @@ namespace OnionSeed.Types
 		public bool MaxIsIncluded { get; }
 
 		/// <summary>
+		/// Gets a value indicating whether the interval does not include any of its endpoints.
+		/// </summary>
+		public bool IsOpen => !MinIsIncluded && !MaxIsIncluded;
+
+		/// <summary>
+		/// Gets a value indicating whether the interval includes exactly one of its endpoints.
+		/// </summary>
+		public bool IsHalfOpen => MinIsIncluded ^ MaxIsIncluded;
+
+		/// <summary>
+		/// Gets a value indicating whether the interval includes both of its endpoints.
+		/// </summary>
+		public bool IsClosed => MinIsIncluded && MaxIsIncluded;
+
+		/// <summary>
 		/// Returns <c>true</c> if the operands are equal, otherwise <c>false</c>.
 		/// </summary>
 		/// <param name="left">The first operand.</param>
@@ -102,23 +117,18 @@ namespace OnionSeed.Types
 		}
 
 		/// <inheritdoc />
-		public bool Equals(Interval<T> other)
-		{
-			return Min.IsEqualTo(other.Min)
-				&& Max.IsEqualTo(other.Max)
-				&& MinIsIncluded == other.MinIsIncluded
-				&& MaxIsIncluded == other.MaxIsIncluded;
-		}
+		public bool Equals(Interval<T> other) =>
+			Min.IsEqualTo(other.Min) &&
+			Max.IsEqualTo(other.Max) &&
+			MinIsIncluded == other.MinIsIncluded &&
+			MaxIsIncluded == other.MaxIsIncluded;
 
 		/// <inheritdoc />
-		public override int GetHashCode()
-		{
-			return HashCode
-				.Of(MinIsIncluded)
-				.And(Min)
-				.And(Max)
-				.And(MaxIsIncluded);
-		}
+		public override int GetHashCode() => HashCode
+			.Of(MinIsIncluded)
+			.And(Min)
+			.And(Max)
+			.And(MaxIsIncluded);
 
 		/// <summary>
 		/// Returns the string representation of this instance.
