@@ -64,6 +64,9 @@
             <param name="min">The minimum (left) endpoint in the interval.</param>
             <param name="max">The maximum (right) endpoint in the interval.</param>
             <remarks>By default, the interval will be closed (inclusive).</remarks>
+            <exception cref="T:System.ArgumentNullException"><paramref name="min"/> is <c>null</c>.
+            -or- <paramref name="max"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
         </member>
         <member name="M:OnionSeed.Types.Interval`1.#ctor(System.Boolean,`0,`0,System.Boolean)">
             <summary>
@@ -73,6 +76,9 @@
             <param name="min">The minimum (left) endpoint in the interval.</param>
             <param name="max">The maximum (right) endpoint in the interval.</param>
             <param name="maxIsIncluded">A value indicating whether the <see cref="P:OnionSeed.Types.Interval`1.Max"/> endpoint is included in the interval.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="min"/> is <c>null</c>.
+            -or- <paramref name="max"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
         </member>
         <member name="P:OnionSeed.Types.Interval`1.Min">
             <summary>

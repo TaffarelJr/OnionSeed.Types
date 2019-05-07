@@ -7,6 +7,23 @@ namespace OnionSeed.Types
 	public class IntervalTests
 	{
 		[Theory]
+		[InlineData(false, false)]
+		[InlineData(false, true)]
+		[InlineData(true, false)]
+		public void Constructor_ShouldValidateParameters(bool includeMin, bool includeMax)
+		{
+			// Arrange
+			var min = includeMin ? "ABC" : null;
+			var max = includeMax ? "DEF" : null;
+
+			// Act
+			Action action = () => new Interval<string>(min, max);
+
+			// Assert
+			action.Should().Throw<ArgumentNullException>();
+		}
+
+		[Theory]
 		[InlineData(3, 3)]
 		[InlineData(3, 4)]
 		[InlineData(3, 7)]
@@ -31,6 +48,23 @@ namespace OnionSeed.Types
 
 			// Assert
 			action.Should().Throw<ArgumentOutOfRangeException>();
+		}
+
+		[Theory]
+		[InlineData(false, false)]
+		[InlineData(false, true)]
+		[InlineData(true, false)]
+		public void Constructor_ShouldValidateParameters_WhenInclusionIsSpecified(bool includeMin, bool includeMax)
+		{
+			// Arrange
+			var min = includeMin ? "ABC" : null;
+			var max = includeMax ? "DEF" : null;
+
+			// Act
+			Action action = () => new Interval<string>(false, min, max, false);
+
+			// Assert
+			action.Should().Throw<ArgumentNullException>();
 		}
 
 		[Theory]

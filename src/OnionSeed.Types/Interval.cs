@@ -17,6 +17,9 @@ namespace OnionSeed.Types
 		/// <param name="min">The minimum (left) endpoint in the interval.</param>
 		/// <param name="max">The maximum (right) endpoint in the interval.</param>
 		/// <remarks>By default, the interval will be closed (inclusive).</remarks>
+		/// <exception cref="ArgumentNullException"><paramref name="min"/> is <c>null</c>.
+		/// -or- <paramref name="max"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
 		public Interval(T min, T max)
 			: this(true, min, max, true)
 		{
@@ -29,8 +32,15 @@ namespace OnionSeed.Types
 		/// <param name="min">The minimum (left) endpoint in the interval.</param>
 		/// <param name="max">The maximum (right) endpoint in the interval.</param>
 		/// <param name="maxIsIncluded">A value indicating whether the <see cref="Max"/> endpoint is included in the interval.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="min"/> is <c>null</c>.
+		/// -or- <paramref name="max"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
 		public Interval(bool minIsIncluded, T min, T max, bool maxIsIncluded)
 		{
+			if (min == null)
+				throw new ArgumentNullException(nameof(min));
+			if (max == null)
+				throw new ArgumentNullException(nameof(max));
 			if (max.IsLessThan(min))
 				throw new ArgumentOutOfRangeException(nameof(max), "The Max endpoint cannot be less than the Min endpoint.");
 
