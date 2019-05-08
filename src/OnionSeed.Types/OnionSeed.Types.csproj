@@ -8,4 +8,8 @@
 
 	<Import Project="..\..\build\Production.props" />
 
+	<ItemGroup>
+		<PackageReference Include="OnionSeed.Helpers.Comparable" Version="1.0.1" />
+	</ItemGroup>
+
 </Project>
