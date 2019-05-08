@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using OnionSeed.Helpers.Comparable;
 
 namespace OnionSeed.Types
 {
 	/// <summary>
-	/// Represents a mathematical interval. This can be useful for things like date ranges.
+	/// Represents a mathematical interval. The interval can be iterated at varying levels of granularity,
+	/// without needing to store every value in the interval.
 	/// </summary>
 	/// <typeparam name="T">The type of values in the interval.</typeparam>
 	/// <remarks>Details on mathematical intervals can be found here: https://en.wikipedia.org/wiki/Interval_(mathematics) .</remarks>
@@ -153,6 +155,61 @@ namespace OnionSeed.Types
 			var start = MinIsIncluded ? '[' : '(';
 			var end = MaxIsIncluded ? ']' : ')';
 			return $"{start}{Min}, {Max}{end}";
+		}
+
+		/// <summary>
+		/// Enumerates the values that fall within the interval, in ascending order (from <see cref="Min"/> to <see cref="Max"/>).
+		/// </summary>
+		/// <param name="increment">The method that determines how to increment from one value to the next.</param>
+		/// <returns>An <see cref="IEnumerable{T}"/> that contains all the values in the interval,
+		/// in ascending order, as determined by the <paramref name="increment"/> algorithm.</returns>
+		/// <exception cref="ArgumentNullException"><paramref name="increment"/> is <b>null</b>.</exception>
+		/// <remarks>If <paramref name="increment"/> does not move the current value from <see cref="Min"/> towards <see cref="Max"/>,
+		/// then this enumeration will result in an infinite loop.</remarks>
+		public IEnumerable<T> Ascending(Func<T, T> increment)
+		{
+			if (increment == null)
+				throw new ArgumentNullException(nameof(increment));
+
+			var start = MinIsIncluded ? Min : increment(Min);
+			var end = Max;
+			Predicate<T> predicate = MaxIsIncluded
+				? (T c) => c.IsLessThanOrEqualTo(end)
+				: (Predicate<T>)((T c) => c.IsLessThan(end));
+
+			return Enumerate(start, increment, predicate);
+		}
+
+		/// <summary>
+		/// Enumerates the values that fall within the interval, in descending order (from <see cref="Max"/> to <see cref="Min"/>).
+		/// </summary>
+		/// <param name="decrement">The method that determines how to decrement from one value to the next.</param>
+		/// <returns>An <see cref="IEnumerable{T}"/> that contains all the values in the interval,
+		/// in descending order, as determined by the <paramref name="decrement"/> algorithm.</returns>
+		/// <exception cref="ArgumentNullException"><paramref name="decrement"/> is <b>null</b>.</exception>
+		/// <remarks>If <paramref name="decrement"/> does not move the current value from <see cref="Max"/> towards <see cref="Min"/>,
+		/// then this enumeration will result in an infinite loop.</remarks>
+		public IEnumerable<T> Descending(Func<T, T> decrement)
+		{
+			if (decrement == null)
+				throw new ArgumentNullException(nameof(decrement));
+
+			var start = MaxIsIncluded ? Max : decrement(Max);
+			var end = Min;
+			Predicate<T> predicate = MinIsIncluded
+				? (T c) => c.IsGreaterThanOrEqualTo(end)
+				: (Predicate<T>)((T c) => c.IsGreaterThan(end));
+
+			return Enumerate(start, decrement, predicate);
+		}
+
+		private static IEnumerable<T> Enumerate(T current, Func<T, T> step, Predicate<T> shouldContinue)
+		{
+			while (shouldContinue(current))
+			{
+				yield return current;
+				current = step(current);
+			}
 		}
 	}
 }

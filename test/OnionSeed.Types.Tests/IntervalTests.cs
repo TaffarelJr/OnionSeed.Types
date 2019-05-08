@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -329,6 +330,42 @@ namespace OnionSeed.Types
 
 			// Assert
 			result.Should().Be(expected);
+		}
+
+		[Theory]
+		[InlineData(false, 3, 7, false, 4, 5, 6)]
+		[InlineData(false, 3, 7, true, 4, 5, 6, 7)]
+		[InlineData(true, 3, 7, false, 3, 4, 5, 6)]
+		[InlineData(true, 3, 7, true, 3, 4, 5, 6, 7)]
+		public void Ascending_ShouldEnumerateProperly(bool includeMin, int min, int max, bool includeMax, params int[] expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.Ascending(i => i + 1).ToList();
+
+			// Assert
+			result.Should().BeEquivalentTo(expected, options =>
+				options.WithStrictOrdering());
+		}
+
+		[Theory]
+		[InlineData(false, 3, 7, false, 6, 5, 4)]
+		[InlineData(false, 3, 7, true, 7, 6, 5, 4)]
+		[InlineData(true, 3, 7, false, 6, 5, 4, 3)]
+		[InlineData(true, 3, 7, true, 7, 6, 5, 4, 3)]
+		public void Descending_ShouldEnumerateProperly(bool includeMin, int min, int max, bool includeMax, params int[] expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.Descending(i => i - 1).ToList();
+
+			// Assert
+			result.Should().BeEquivalentTo(expected, options =>
+				options.WithStrictOrdering());
 		}
 	}
 }

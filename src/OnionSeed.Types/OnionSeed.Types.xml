@@ -52,7 +52,8 @@
         </member>
         <member name="T:OnionSeed.Types.Interval`1">
             <summary>
-            Represents a mathematical interval. This can be useful for things like date ranges.
+            Represents a mathematical interval. The interval can be iterated at varying levels of granularity,
+            without needing to store every value in the interval.
             </summary>
             <typeparam name="T">The type of values in the interval.</typeparam>
             <remarks>Details on mathematical intervals can be found here: https://en.wikipedia.org/wiki/Interval_(mathematics) .</remarks>
@@ -159,6 +160,28 @@
             Returns the string representation of this instance.
             </summary>
             <returns>The string representation of this instance.</returns>
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.Ascending(System.Func{`0,`0})">
+            <summary>
+            Enumerates the values that fall within the interval, in ascending order (from <see cref="P:OnionSeed.Types.Interval`1.Min"/> to <see cref="P:OnionSeed.Types.Interval`1.Max"/>).
+            </summary>
+            <param name="increment">The method that determines how to increment from one value to the next.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains all the values in the interval,
+            in ascending order, as determined by the <paramref name="increment"/> algorithm.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="increment"/> is <b>null</b>.</exception>
+            <remarks>If <paramref name="increment"/> does not move the current value from <see cref="P:OnionSeed.Types.Interval`1.Min"/> towards <see cref="P:OnionSeed.Types.Interval`1.Max"/>,
+            then this enumeration will result in an infinite loop.</remarks>
+        </member>
+        <member name="M:OnionSeed.Types.Interval`1.Descending(System.Func{`0,`0})">
+            <summary>
+            Enumerates the values that fall within the interval, in descending order (from <see cref="P:OnionSeed.Types.Interval`1.Max"/> to <see cref="P:OnionSeed.Types.Interval`1.Min"/>).
+            </summary>
+            <param name="decrement">The method that determines how to decrement from one value to the next.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains all the values in the interval,
+            in descending order, as determined by the <paramref name="decrement"/> algorithm.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="decrement"/> is <b>null</b>.</exception>
+            <remarks>If <paramref name="decrement"/> does not move the current value from <see cref="P:OnionSeed.Types.Interval`1.Max"/> towards <see cref="P:OnionSeed.Types.Interval`1.Min"/>,
+            then this enumeration will result in an infinite loop.</remarks>
         </member>
     </members>
 </doc>
