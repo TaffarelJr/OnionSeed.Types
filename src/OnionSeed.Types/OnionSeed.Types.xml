@@ -66,7 +66,6 @@
             <remarks>By default, the interval will be closed (inclusive).</remarks>
             <exception cref="T:System.ArgumentNullException"><paramref name="min"/> is <c>null</c>.
             -or- <paramref name="max"/> is <c>null</c>.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
         </member>
         <member name="M:OnionSeed.Types.Interval`1.#ctor(System.Boolean,`0,`0,System.Boolean)">
             <summary>
@@ -78,7 +77,6 @@
             <param name="maxIsIncluded">A value indicating whether the <see cref="P:OnionSeed.Types.Interval`1.Max"/> endpoint is included in the interval.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="min"/> is <c>null</c>.
             -or- <paramref name="max"/> is <c>null</c>.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
         </member>
         <member name="P:OnionSeed.Types.Interval`1.Min">
             <summary>
@@ -113,6 +111,22 @@
         <member name="P:OnionSeed.Types.Interval`1.IsClosed">
             <summary>
             Gets a value indicating whether the interval includes both of its endpoints.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.IsEmpty">
+            <summary>
+            Gets a value indicating whether the interval contains zero elements.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.IsDegenerate">
+            <summary>
+            Gets a value indicating whether the interval contains exactly one element.
+            </summary>
+        </member>
+        <member name="P:OnionSeed.Types.Interval`1.IsProper">
+            <summary>
+            Gets a value indicating whether the interval is neither empty nor degenerate
+            (i.e. it has potentially infinite elements).
             </summary>
         </member>
         <member name="M:OnionSeed.Types.Interval`1.op_Equality(OnionSeed.Types.Interval{`0},OnionSeed.Types.Interval{`0})">

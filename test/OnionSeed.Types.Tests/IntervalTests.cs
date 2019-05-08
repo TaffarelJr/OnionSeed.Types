@@ -40,17 +40,6 @@ namespace OnionSeed.Types
 		}
 
 		[Theory]
-		[InlineData(3, 2)]
-		public void Constructor_ShouldThrowException_WhenMaxIsLessThanMin(int min, int max)
-		{
-			// Act
-			Action action = () => new Interval<int>(min, max);
-
-			// Assert
-			action.Should().Throw<ArgumentOutOfRangeException>();
-		}
-
-		[Theory]
 		[InlineData(false, false)]
 		[InlineData(false, true)]
 		[InlineData(true, false)]
@@ -86,20 +75,6 @@ namespace OnionSeed.Types
 			result.Min.Should().Be(min);
 			result.Max.Should().Be(max);
 			result.MaxIsIncluded.Should().Be(includeMax);
-		}
-
-		[Theory]
-		[InlineData(false, 3, 2, false)]
-		[InlineData(false, 3, 2, true)]
-		[InlineData(true, 3, 2, false)]
-		[InlineData(true, 3, 2, true)]
-		public void Constructor_ShouldThrowException_WhenMaxIsLessThanMin_AndInclusionIsSpecified(bool includeMin, int min, int max, bool includeMax)
-		{
-			// Act
-			Action action = () => new Interval<int>(includeMin, min, max, includeMax);
-
-			// Assert
-			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
 		[Theory]
@@ -276,6 +251,81 @@ namespace OnionSeed.Types
 
 			// Act
 			var result = subject.IsClosed;
+
+			// Assert
+			result.Should().Be(expected);
+		}
+
+		[Theory]
+		[InlineData(false, 3, 2, false, true)]
+		[InlineData(false, 3, 2, true, true)]
+		[InlineData(true, 3, 2, false, true)]
+		[InlineData(true, 3, 2, true, true)]
+		[InlineData(false, 3, 3, false, true)]
+		[InlineData(false, 3, 3, true, true)]
+		[InlineData(true, 3, 3, false, true)]
+		[InlineData(true, 3, 3, true, false)]
+		[InlineData(false, 3, 4, false, false)]
+		[InlineData(false, 3, 4, true, false)]
+		[InlineData(true, 3, 4, false, false)]
+		[InlineData(true, 3, 4, true, false)]
+		public void IsEmpty_ShouldReturnCorrectValue(bool includeMin, int min, int max, bool includeMax, bool expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.IsEmpty;
+
+			// Assert
+			result.Should().Be(expected);
+		}
+
+		[Theory]
+		[InlineData(false, 3, 2, false, false)]
+		[InlineData(false, 3, 2, true, false)]
+		[InlineData(true, 3, 2, false, false)]
+		[InlineData(true, 3, 2, true, false)]
+		[InlineData(false, 3, 3, false, false)]
+		[InlineData(false, 3, 3, true, false)]
+		[InlineData(true, 3, 3, false, false)]
+		[InlineData(true, 3, 3, true, true)]
+		[InlineData(false, 3, 4, false, false)]
+		[InlineData(false, 3, 4, true, false)]
+		[InlineData(true, 3, 4, false, false)]
+		[InlineData(true, 3, 4, true, false)]
+		public void IsDegenerate_ShouldReturnCorrectValue(bool includeMin, int min, int max, bool includeMax, bool expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.IsDegenerate;
+
+			// Assert
+			result.Should().Be(expected);
+		}
+
+		[Theory]
+		[InlineData(false, 3, 2, false, false)]
+		[InlineData(false, 3, 2, true, false)]
+		[InlineData(true, 3, 2, false, false)]
+		[InlineData(true, 3, 2, true, false)]
+		[InlineData(false, 3, 3, false, false)]
+		[InlineData(false, 3, 3, true, false)]
+		[InlineData(true, 3, 3, false, false)]
+		[InlineData(true, 3, 3, true, false)]
+		[InlineData(false, 3, 4, false, true)]
+		[InlineData(false, 3, 4, true, true)]
+		[InlineData(true, 3, 4, false, true)]
+		[InlineData(true, 3, 4, true, true)]
+		public void IsProper_ShouldReturnCorrectValue(bool includeMin, int min, int max, bool includeMax, bool expected)
+		{
+			// Arrange
+			var subject = new Interval<int>(includeMin, min, max, includeMax);
+
+			// Act
+			var result = subject.IsProper;
 
 			// Assert
 			result.Should().Be(expected);

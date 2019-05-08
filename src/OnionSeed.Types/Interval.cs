@@ -19,7 +19,6 @@ namespace OnionSeed.Types
 		/// <remarks>By default, the interval will be closed (inclusive).</remarks>
 		/// <exception cref="ArgumentNullException"><paramref name="min"/> is <c>null</c>.
 		/// -or- <paramref name="max"/> is <c>null</c>.</exception>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
 		public Interval(T min, T max)
 			: this(true, min, max, true)
 		{
@@ -34,15 +33,12 @@ namespace OnionSeed.Types
 		/// <param name="maxIsIncluded">A value indicating whether the <see cref="Max"/> endpoint is included in the interval.</param>
 		/// <exception cref="ArgumentNullException"><paramref name="min"/> is <c>null</c>.
 		/// -or- <paramref name="max"/> is <c>null</c>.</exception>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is less than <paramref name="min"/>.</exception>
 		public Interval(bool minIsIncluded, T min, T max, bool maxIsIncluded)
 		{
 			if (min == null)
 				throw new ArgumentNullException(nameof(min));
 			if (max == null)
 				throw new ArgumentNullException(nameof(max));
-			if (max.IsLessThan(min))
-				throw new ArgumentOutOfRangeException(nameof(max), "The Max endpoint cannot be less than the Min endpoint.");
 
 			MinIsIncluded = minIsIncluded;
 			Min = min;
@@ -84,6 +80,24 @@ namespace OnionSeed.Types
 		/// Gets a value indicating whether the interval includes both of its endpoints.
 		/// </summary>
 		public bool IsClosed => MinIsIncluded && MaxIsIncluded;
+
+		/// <summary>
+		/// Gets a value indicating whether the interval contains zero elements.
+		/// </summary>
+		public bool IsEmpty =>
+			Min.IsGreaterThan(Max) ||
+			(Min.IsEqualTo(Max) && !IsClosed);
+
+		/// <summary>
+		/// Gets a value indicating whether the interval contains exactly one element.
+		/// </summary>
+		public bool IsDegenerate => Min.IsEqualTo(Max) && IsClosed;
+
+		/// <summary>
+		/// Gets a value indicating whether the interval is neither empty nor degenerate
+		/// (i.e. it has potentially infinite elements).
+		/// </summary>
+		public bool IsProper => Min.IsLessThan(Max);
 
 		/// <summary>
 		/// Returns <c>true</c> if the operands are equal, otherwise <c>false</c>.
